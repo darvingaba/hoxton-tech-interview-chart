@@ -43,19 +43,12 @@ type Student = {
     },
 }
 function App() {
+    let [students,setStudents] = useState<Student[]>(studentData)
+    let[input,setInput] = useState<Student>({} as Student)
+    console.log(studentData)
 
-  // let [item, setItem] = useState<Student[]>([]);
-  // let [input, setInput] = useState<Student>({} as Student); 
-
-  // const saveInput = (e) => {
-  //   setInput(e.target.value);
-  // };
-  // const addNewItem = () => {
-  //   const copyCart = [...item];
-  //   copyCart.push(input);
-  //   setItem(copyCart);
-  //   setInput({} as Student);
-  // };
+    console.log(input)
+  
   return (
     <>
       <BarChart width={600} height={300} data={studentData}>
@@ -74,32 +67,35 @@ function App() {
       </BarChart>
 
 
-      {/* <form onSubmit={
-        e=>{
-          e.preventDefault()
-            const setInput = ({
-            name: e.target.name.value,
-            submissions: {
-            beavers: e.target.beavers.value,
-            stars: e.target.stars.value,
-    },
-          })
-        }
-      }>
+      <form 
+      onSubmit={e=>{
+        e.preventDefault()
+        let newStudent = {
+          name: e.target.student.value,
+          submissions: {
+            beavers: Number(e.target.beavers.value),
+            stars: Number(e.target.stars.value)
+          },
+        };
+        setInput(newStudent)
+        setStudents([...students,input])
+        // studentData.push(newStudent)
+      }}
+      >
         <label>
           AddStudent
-          <input type="text" name ="student" value={input.name}/>
+          <input type="text" name ="student" />
         </label>
         <label>
           Add Beavers
-          <input type="number" name ="beavers" value={input.submissions.beavers}/>
+          <input type="number" name ="beavers"/>
         </label>
         <label>
           Add Stars
-          <input type="number" name ="stars" value={input.submissions.stars}/>
+          <input type="number" name ="stars"/>
         </label>
         <button>Submit</button>
-      </form> */}
+      </form>
     </>
   );
 }
